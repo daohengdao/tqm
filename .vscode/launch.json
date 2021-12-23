@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/tqm",
-            "args": ["-s", "0", "-m", "0"],
+            "args": ["-s", "2003-09-09-09", "-m", "0"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

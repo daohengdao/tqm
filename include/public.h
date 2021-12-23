@@ -3,7 +3,7 @@
 /*
  * 该头文件保存处理各种问题的类
 */
-static std::string version = "v0.1.4";
+static std::string version = "版本: V0.2";
 // 打印九宫格结果的类
 // 用法：首先需要赋值给 m1 ~ m6，然后调用 Print()
 // m1 - m6 的内容顺序是 坎一，坤二，震三...的顺序。
@@ -30,6 +30,9 @@ public:
     // 需要加中括号提示的两个字体
     std::string showOne = "";
     std::string showTwo = "";
+    // 直符、直使 *提示
+    std::string zhiFu = "";
+    std::string zhiShi = "";
 private:
     // 处理一格的内容，参数为第几格
     std::string simpleHandleOne(int index);
@@ -45,4 +48,6 @@ private:
     std::string handleTwo(int num);
     // 不同字数操作，vector 第几个内容（下标）
     std::string handleThree(int num);
+    // 直符、直使返回的空格不同
+    std::string haveZhi(std::string data);
 };

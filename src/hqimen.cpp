@@ -73,6 +73,37 @@ HQiMen::HQiMen(std::string p1, std::string p2, bool isAddEight)
         {1, "一"}, {2, "二"}, {3, "三"}, {4, "四"}, {5, "五"},
         {6, "六"}, {7, "七"}, {8, "八"}, {9, "九"}, {10, "十"}, {0, "零"}
     };
+    // 九星的初始位置
+    jiuXing =
+    {
+        "天蓬", "天芮", "天冲", "天辅", "天禽", "天心", "天柱", "天任", "天英"
+    };
+    // 八门的初始位置           
+    baMen = 
+    {
+        "休门", "死门", "伤门", "杜门", "死门", "开门", "惊门", "生门", "景门"
+    };               
+    // 六甲对应关系  
+    liuJia = 
+    {
+        {"甲子", "戊"}, {"甲戌", "己"}, {"甲申", "庚"}, 
+        {"甲午", "辛"}, {"甲辰", "壬"}, {"甲寅", "癸"}
+    };  
+    // 九星的旋转位置
+    jiuXingPaiLie = 
+    {
+        "天蓬", "天任", "天冲", "天辅", "天英", "天芮", "天柱", "天心"
+    };
+    // 八门旋转位置
+    baMenPaiLie = 
+    {
+        "休门", "生门", "伤门", "杜门", "景门", "死门", "惊门", "开门"
+    };
+    // 八神的旋转位置
+    baShenPaiLie = 
+    {
+        "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"
+    };        
 }
 HQiMen::~HQiMen()
 {
@@ -92,7 +123,8 @@ void HQiMen::Run()
     }
     std::cout << "===========================================" << std::endl;
     std::cout << "[公元" << m_year << "年" << m_month << "月" << m_day
-        << "日" << m_hour << "时" << m_min << "分" << m_sec << "秒]" << std::endl;
+        << "日" << m_hour << "时" << m_min << "分" << m_sec << "秒]";
+    std::cout << "[" << version << "]" << std::endl;
 
     bool re = m_calendar->SetSolarDate(m_year, m_month, m_day, m_hour, m_min, m_sec);
     confirmNumth();
@@ -108,36 +140,60 @@ void HQiMen::Run()
         std::string ShiZhi = m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 1, 1);
 
         int lunarY = m_calendar->lunarYear;
-        std::cout << "农历:" << numName[lunarY / 1000] << numName[(lunarY - (lunarY / 1000) * 1000) / 100]
-            << numName[((lunarY - (lunarY % 10)) / 10) % 10] << numName[lunarY % 10] << "年 "
-            << cnNameMonth[m_calendar->lunarMonth] << cnNameDay[m_calendar->lunarDay]
-            << " " << m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 1, 2) << "时" << std::endl;
+        std::cout << "===========================================" << std::endl;
+        std::cout << "农历:"
+        << numName[lunarY / 1000]
+        << numName[(lunarY - (lunarY / 1000) * 1000) / 100]
+        << numName[((lunarY - (lunarY % 10)) / 10) % 10]
+        << numName[lunarY % 10] << "年 "
+        << cnNameMonth[m_calendar->lunarMonth]
+        << cnNameDay[m_calendar->lunarDay]
+        << " "
+        << m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 1, 2)
+        << "时" << std::endl;        
+        // 生成地盘
+        diPan = generateDiPan();
+        // 计算直符、直使
+        findZhifuZhishi();
+        // 转动直符、直使
+        turnZhifuZhishi();
+        // 八神
+        generateBaShen();
+        // 天盘
+        generateTianPan();
+        
         std::cout << "干支:" << NianGan << " " << YueGan << " " << RiGan << " " << ShiGan << std::endl;
         std::cout << "     " << NianZhi << " " << YueZhi << " " << RiZhi << " " << ShiZhi << std::endl;
-
-        // 以下的内容是属于测试信息
-        std::vector<std::string> m1 = {"九地", "腾蛇", "白虎", "六合", "", "九天", "值符", "玄武", "太阴"};
-        std::vector<std::string> m2 = {"天英", "天任", "天柱", "天心", "", "天辅", "天冲", "天芮", "天蓬"};
-        std::vector<std::string> m3 = {"生门", "惊门", "杜门", "景门", "", "休门", "开门", "伤门", "死门"};
-        std::vector<std::string> m4 = {"丙", "乙", "戊", "己", "庚", "辛", "壬", "癸庚", "丁"};
-        std::vector<std::string> m5 = {"丁", "癸", "壬", "辛", "", "己", "戊", "乙", "丙"};
-        std::vector<std::string> m6 = {"", "", "空", "", "", "", "", "马", ""};
-
+        std::cout << "===========================================" << std::endl;
+        std::cout << "直符:" << zhiFu << "  直使: " << zhiShi ;
+        std::cout << "   [" << m_jieqi << m_yuan << "]";
+        if (isYinDun)
+        {
+            std::cout << "[阴遁" << style << "局]" << std::endl;
+        }
+        else
+        {
+            std::cout << "[阳遁" << style << "局]" << std::endl;
+        }
+        // 准备打印结果
         PrintResult *su = new PrintResult;
-        su->m1 = m1;
-        su->m2 = m2;
-        su->m3 = m3;
-        su->m4 = m4;
-        su->m5 = m5;
-        su->m6 = m6;
+        su->m1 = baShenRe;
+        su->m2 = jiuXingRe;
+        su->m3 = baMenRe;
+        su->m4 = tianPan;
+        su->m5 = diPan;
+        std::vector<std::string> s = {"", "", "", "", "", "", "", "", ""};
+        su->m6 = s;
 
-        su->showOne = "丁";
-        su->showTwo = "辛";
+        su->showOne = m_calendar->zhSubstr(m_calendar->lunarDayZhu, 2, 0, 1);
+        su->showTwo = m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 0, 1);
+        su->zhiFu = zhiFu;
+        su->zhiShi = zhiShi;
         su->Print();
 
         delete su;
         su = nullptr;
-        std::cout << "说明：上盘仅为排版测试，内容并不正确。" << std::endl;
+        // std::cout << "说明：上盘仅为排版测试，内容并不正确。" << std::endl;
         std::string JQ1, JQ2;
         std::string JQ1Time = m_calendar->getJieQiStandardTime(m_year, m_calendar->jieQiOne, JQ1);
         std::string JQ2Time = m_calendar->getJieQiStandardTime(m_year, m_calendar->jieQiTwo, JQ2);
@@ -204,18 +260,6 @@ void HQiMen::confirmNumth()
     {
         std::cout << "<阴阳遁数据中未找到数据>" << std::endl;
     }
-
-    /***************** 这部分为测试语句 **************/
-    std::cout << "[" << m_jieqi << m_yuan << "]";
-    if (isYinDun)
-    {
-        std::cout << "[阴遁" << style << "局]";
-    }
-    else
-    {
-        std::cout << "[阳遁" << style << "局]";
-    }
-    std::cout << "[" << version << "]" << std::endl;
 }
 // 生成阴遁阳遁表
 void HQiMen::generate()
@@ -405,4 +449,255 @@ void HQiMen::generate()
         oneYearData.insert(std::make_pair(nextDate, startJieQiName + nextRiZhu));
         jieqiMutex++;
     }
+}
+// 生成地盘，vector 长度为 9
+std::vector<std::string> HQiMen::generateDiPan()
+{
+    std::vector<std::string> result(9);
+
+    int index = m_calendar->getRemainder((style - 1), 9);
+    result.at(index) = "戊";
+
+    // 阴遁阳遁排序不同
+    if (isYinDun)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            index--;
+            result.at(m_calendar->getRemainder(index, 9)) = m_calendar->tianGan[5 + i];
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            index--;
+            result.at(m_calendar->getRemainder(index, 9)) = m_calendar->tianGan[3 - i];
+        }
+    } else {
+        for (int i = 0; i < 5; i++)
+        {
+            index++;
+            result.at(index % 9) = m_calendar->tianGan[5 + i];
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            index++;
+            result.at(index % 9) = m_calendar->tianGan[3 - i];
+        }
+    }
+    return result;
+}
+// 找直符、直使
+void HQiMen::findZhifuZhishi()
+{
+    std::string hourZhu = m_calendar->lunarHourZhu;
+    // 查找旬头
+    int index = m_calendar->sixtyJiaziIndex[hourZhu];
+    int futou = (index / 10) * 10;
+    std::string tmp = m_calendar->sixtyJiazi[futou];
+    // 旬头对应的六仪
+    std::string tg = liuJia[tmp];
+    // 宫的位置
+    int tindex = getIndex(diPan, tg);
+    // 看直符是谁
+    zhiFu = jiuXing[tindex];
+    zhiShi = baMen[tindex];
+}
+ // 查看 data 在 m 中的下标
+int HQiMen::getIndex(std::vector<std::string> m, std::string data)
+{
+    int i = 0;
+    std::vector<std::string>::iterator it;
+    for (it = m.begin(); it != m.end(); it++)
+    {
+        if (*it == data)
+        {
+            break;
+        }
+        i++;
+    }
+    return i;
+}
+// 转动直符、直使
+void HQiMen::turnZhifuZhishi()
+{
+    std::string hourTG = m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 0, 1);
+    if (hourTG == "甲")
+    {
+        jiuXingRe.assign(jiuXing.begin(), jiuXing.end());
+        baMenRe.assign(baMen.begin(), baMen.end());
+        return;
+    }
+    int hourIndex = getIndex(diPan, hourTG);
+    int t_index = hourIndex;
+    if (t_index == 4)
+    {
+        t_index = 1;
+    }
+    std::vector<std::string> result(9);
+    std::string t = zhiFu;
+    if (zhiFu == "天禽")
+    {
+        t = "天芮";
+    }
+
+    result.at(t_index) = zhiFu;
+    int zhiFuIndex = getIndex(jiuXingPaiLie, t);
+    int __index[8] = {1, 6, 5, 0, 7, 2, 3, 8};
+    int start = 0;
+    for (int i = 0; i < 8; i++)
+    {
+        if (t_index == __index[i])
+        {
+            break;
+        }
+        start++;
+    }
+    // "天蓬", "天任", "天冲", "天辅", "天英", "天芮", "天柱", "天心"
+    for (int i = 0; i < 8; i++)
+    {
+        std::string nextName = jiuXingPaiLie[(++zhiFuIndex) % 8];
+        start++;
+        result.at(__index[start % 8]) = nextName;
+    }
+    jiuXingRe = result;  // 至此完成了九星的排列
+
+    // 下面排八门
+    std::string hourZhu = m_calendar->lunarHourZhu;
+    // 查找旬头
+    int index = m_calendar->sixtyJiaziIndex[hourZhu];
+    int futou = (index / 10) * 10;
+    std::string tmp = m_calendar->sixtyJiazi[futou];
+    // 旬头对应的六仪
+    std::string tg = liuJia[tmp];
+    // 旬头宫的位置
+    int tindex = getIndex(diPan, tg);
+    // 从 tindex 宫开始向后排列
+    int tt = 0;
+    if (isYinDun)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (m_calendar->sixtyJiazi[futou] == m_calendar->lunarHourZhu)
+            {
+                break;
+            }
+            tindex--;
+            futou++;
+            tt = m_calendar->getRemainder(tindex, 9);
+        }
+    } else {
+        for (int i = 0; i < 9; i++)
+        {
+            if (m_calendar->sixtyJiazi[futou] == m_calendar->lunarHourZhu)
+            {
+                break;
+            }
+            tindex++;
+            futou++;
+            tt = m_calendar->getRemainder(tindex, 9);
+        }
+    }
+
+    if (tt == 4)
+    {
+        tt = 1;
+    }
+    start = 0;
+    // int __index[8] = {1, 6, 5, 0, 7, 2, 3, 8};
+    for (int i = 0; i < 8; i++)
+    {
+        if (tt == __index[i])
+        {
+            break;
+        }
+        start++;
+    }
+    int menIndex = 0;
+    // 找出门的下标
+    for (int i = 0; i < 8; i++)
+    {
+        if (baMenPaiLie.at(i) == zhiShi)
+        {
+            break;
+        }
+        menIndex++;
+    }
+    std::vector<std::string> resultBamen(9);
+    // "休门", "生门", "伤门", "杜门", "景门", "死门", "惊门", "开门"
+    for (int i = 0; i < 8; i++)
+    {
+        std::string nextName = baMenPaiLie[(menIndex++) % 8];
+        resultBamen.at(__index[start % 8]) = nextName;
+        start++;
+    }
+    baMenRe = resultBamen;  // 至此完成了八门的排列
+}
+// 排八神
+void HQiMen::generateBaShen()
+{
+    // "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"
+    std::string hourTG = m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 0, 1);
+    if (hourTG == "甲")
+    {
+        hourTG = liuJia[m_calendar->lunarHourZhu];
+    }
+    int hourIndex = getIndex(diPan, hourTG);
+    int t_index = hourIndex;
+    if (t_index == 4)
+    {
+        t_index = 1;
+    }
+    int __index[8] = {1, 6, 5, 0, 7, 2, 3, 8};
+    int start = 0;
+    for (int i = 0; i < 8; i++)
+    {
+        if (t_index == __index[i])
+        {
+            break;
+        }
+        start++;
+    }
+    int tmp = 0;
+    std::vector<std::string> result(9);
+    if (!isYinDun)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            std::string nextName = baShenPaiLie[tmp];
+            result.at(__index[start % 8]) = nextName;
+            start++;
+            tmp++;
+        }
+    } else {
+        for (int i = 0; i < 8; i++)
+        {
+            std::string nextName = baShenPaiLie[tmp];
+            result.at(__index[m_calendar->getRemainder(start, 8)]) = nextName;
+            start--;
+            tmp++;
+        }
+    }
+    baShenRe = result;
+}
+// 排天盘
+void HQiMen::generateTianPan()
+{
+    std::vector<std::string> result(9);
+    std::string tmp;
+    for (int i = 0; i < 9; i++)
+    {
+        tmp = jiuXing.at(i);
+        if (tmp == "天禽")
+        {
+            tmp = "天芮";
+        }
+        std::string diPanTmp = diPan.at(i);
+        int xingIndex = getIndex(jiuXingRe, tmp);
+        if (result.at(xingIndex) != "")
+        {
+            result.at(xingIndex) = result.at(xingIndex) + diPanTmp;
+        } else {
+            result.at(xingIndex) = diPanTmp;
+        }
+    }
+    tianPan = result;
 }

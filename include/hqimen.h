@@ -4,9 +4,10 @@
 #include <string>
 #include "deal.h"
 #include "calendar.h"
-
-// 临时
 #include <iostream>
+#include <vector>
+
+// 癸亥时全盘伏吟？？？
 
 class HQiMen
 {
@@ -37,6 +38,8 @@ private:
 
     std::string m_yuan;                               // 上中下哪一元 (汉字两个)
     std::string m_jieqi;                              // 归哪个节气管
+    std::string zhiFu;                                // 直符是谁
+    std::string zhiShi;                               // 直使是谁
 
     Calendar* m_calendar = nullptr;                   // 日历
 
@@ -45,12 +48,39 @@ private:
     std::map<int, std::string> cnNameDay;             // 农历中文名字日
     std::map<int, std::string> cnNameMonth;           // 农历中文名字月
     std::map<int, std::string> numName;               // 数字中文
+    std::map<std::string, std::string> liuJia;        // 六甲对应关系
+
+    std::vector<std::string> jiuXing;                 // 九星的初始位置
+    std::vector<std::string> jiuXingPaiLie;           // 九星的旋转位置
+    std::vector<std::string> baMen;                   // 八门的初始位置
+    std::vector<std::string> baMenPaiLie;             // 八门的旋转位置
+    std::vector<std::string> baShenPaiLie;             // 八神的旋转位置
+
+    std::vector<std::string> diPan;                   // 地盘信息
+    std::vector<std::string> jiuXingRe;               // 九星的最终位置
+    std::vector<std::string> baMenRe;                 // 八门的最终位置
+    std::vector<std::string> baShenRe;                 // 八神的最终位置
+    std::vector<std::string> tianPan;                 // 天盘信息
+
 
 private:
 
     void confirmNumth();          // 定哪一局
     void generate();              // 生成阴遁阳遁表
+    // 生成地盘，vector 长度为 9
+    std::vector<std::string> generateDiPan();   
+    // 找直符、直使
+    void findZhifuZhishi();   
+    // 转动直符、直使
+    void turnZhifuZhishi();
+    // 排八神
+    void generateBaShen();
+    // 排天盘
+    void generateTianPan();
 
+private:
+    // 查看 data 在 m 中的下标
+    int getIndex(std::vector<std::string> m, std::string data);     
 };
 
 #endif // HQIMEN_H

@@ -95,34 +95,43 @@ std::string PrintResult::handleThree(int num)
 std::string PrintResult::simpleHandleThree(int index)
 {
     std::string re = "";
+    std::string space;
     switch (index)
     {
     case 1:
-        re = re + " " + m3.at(3) + handleThree(3);
+        space = m3.at(3);
+        re = re + haveZhi(space) + space + handleThree(3);
         break;
     case 2:
-        re = re + " " + m3.at(8) + handleThree(8);
+        space = m3.at(8);
+        re = re + haveZhi(space) + space + handleThree(8);
         break;
     case 3:
-        re = re + " " + m3.at(1) + handleThree(1);
+        space = m3.at(1);
+        re = re + haveZhi(space) + space + handleThree(1);
         break;
     case 4:
-        re = re + " " + m3.at(2) + handleThree(2);
+        space = m3.at(2);
+        re = re + haveZhi(space) + space + handleThree(2);
         break;
     case 5:
         re = "             ";
         break;
     case 6:
-        re = re + " " + m3.at(6) + handleThree(6);
+        space = m3.at(6);
+        re = re + haveZhi(space) + space + handleThree(6);
         break;
     case 7:
-        re = re + " " + m3.at(7) + handleThree(7);
+        space = m3.at(7);
+        re = re + haveZhi(space) + space + handleThree(7);
         break;
     case 8:
-        re = re + " " + m3.at(0) + handleThree(0);
+        space = m3.at(0);
+        re = re + haveZhi(space) + space + handleThree(0);
         break;
     case 9:
-        re = re + " " + m3.at(5) + handleThree(5);
+        space = m3.at(5);
+        re = re + haveZhi(space) + space + handleThree(5);
         break;
     
     default:
@@ -168,34 +177,35 @@ std::string PrintResult::handleOne(int num)
 std::string PrintResult::simpleHandleOne(int index)
 {
     std::string re = "";
+    std::string space = " ";
     switch (index)
     {
     case 1:
-        re = re + " " + m1.at(3) + handleOne(3);
+        re = re + space + m1.at(3) + handleOne(3);
         break;
     case 2:
-        re = re + " " + m1.at(8) + handleOne(8);
+        re = re + space + m1.at(8) + handleOne(8);
         break;
     case 3:
-        re = re + " " + m1.at(1) + handleOne(1);
+        re = re + space + m1.at(1) + handleOne(1);
         break;
     case 4:
-        re = re + " " + m1.at(2) + handleOne(2);
+        re = re + space + m1.at(2) + handleOne(2);
         break;
     case 5:
         re = "             ";
         break;
     case 6:
-        re = re + " " + m1.at(6) + handleOne(6);
+        re = re + space + m1.at(6) + handleOne(6);
         break;
     case 7:
-        re = re + " " + m1.at(7) + handleOne(7);
+        re = re + space + m1.at(7) + handleOne(7);
         break;
     case 8:
-        re = re + " " + m1.at(0) + handleOne(0);
+        re = re + space + m1.at(0) + handleOne(0);
         break;
     case 9:
-        re = re + " " + m1.at(5) + handleOne(5);
+        re = re + space + m1.at(5) + handleOne(5);
         break;
     default:
         break;
@@ -216,34 +226,43 @@ void PrintResult::clear()
 std::string  PrintResult::simpleHandleTwo(int index)
 {
     std::string re = "";
+    std::string space;
     switch (index)
     {
     case 1:
-        re = re + " " + m2.at(3) + handleTwo(3);
+        space = m2.at(3);
+        re = re + haveZhi(space) + space + handleTwo(3);
         break;
     case 2:
-        re = re + " " + m2.at(8) + handleTwo(8);
+        space = m2.at(8);
+        re = re + haveZhi(space) + space + handleTwo(8);
         break;
     case 3:
-        re = re + " " + m2.at(1) + handleTwo(1);
+        space = m2.at(1);
+        re = re + haveZhi(space) + space + handleTwo(1);
         break;
     case 4:
-        re = re + " " + m2.at(2) + handleTwo(2);
+        space = m2.at(2);
+        re = re + haveZhi(space) + space + handleTwo(2);
         break;
     case 5:
-        re = re + "      " + m4.at(4) + "     ";
+        re = re + "      " + m5.at(4) + "     ";
         break;
     case 6:
-        re = re + " " + m2.at(6) + handleTwo(6);
+        space = m2.at(6);
+        re = re + haveZhi(space) + space + handleTwo(6);
         break;
     case 7:
-        re = re + " " + m2.at(7) + handleTwo(7);
+        space = m2.at(7);
+        re = re + haveZhi(space) + space + handleTwo(7);
         break;
     case 8:
-        re = re + " " + m2.at(0) + handleTwo(0);
+        space = m2.at(0);
+        re = re + haveZhi(space) + space + handleTwo(0);
         break;
     case 9:
-        re = re + " " + m2.at(5) + handleTwo(5);
+        space = m2.at(5);
+        re = re + haveZhi(space) + space + handleTwo(5);
         break;
 
     default:
@@ -260,7 +279,15 @@ PrintResult::~PrintResult()
 {
 
 }
-
+// 直符、直使返回的空格不同
+std::string PrintResult::haveZhi(std::string data)
+{
+    if (data == zhiFu || data == zhiShi)
+    {
+        return "*";
+    }
+    return " ";
+}
 // void printNine()
 // {
 //     // 一个中文字符占两个字符位置

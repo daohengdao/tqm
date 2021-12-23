@@ -162,11 +162,11 @@ public:
     std::map<std::string, int> sixtyJiaziIndex;    // 60甲子->序号
     std::map<std::string, int> jieQiInfo;          // 节气信息->序号
     std::map<int, std::string> jieQiInfoIndex;     // 序号->节气信息
+    std::vector<std::string> tianGan;              // 天干信息表
+    std::vector<std::string> diZhi;                // 地支信息表
 /* 表 */
 private:
     std::vector<int> lunarInfo;                    // 查表法的农历信息表
-    std::vector<std::string> tianGan;              // 天干信息表
-    std::vector<std::string> diZhi;                // 地支信息表
     int* times = NULL;                             // 各节气之间相差的秒数(精确数据，用于计算节气的具体时间)
     std::map<std::string, std::string> wuHu;       // 五虎遁年起月表
     std::map<std::string, std::string> qiShi;      // 日上起时法表
@@ -182,6 +182,9 @@ public:
     // 对于纯中文（注意不能字符和中文夹杂）的 substr (参数，num 为该字符串有几个中文汉字)
     std::string zhSubstr(const std::string& data, int num, size_t start, size_t length);
 
+    // 对 num 取余，jinZhi 为基数，num 支持负数，结果在 [0, jinZhi-1]内
+    int getRemainder(int num, int jinZhi);                         
+
 /* 主要是本程序使用 */
 private:
     int getLunarYearDays(int year);                                // 返回农历 y 年的总天数
@@ -192,7 +195,7 @@ private:
 
     void getYearMonthZhu();                                        // 计算农历年的 年柱、月柱 (以立春为新年)
     void getHourZhu();                                             // 计算时柱  (该函数要在计算年柱月柱之后执行)
-    int getRemainder(int num, int jinZhi);                         // 对 num 取余，jinZhi 为基数，num 支持负数，结果在 [0, jinZhi-1]内
+    
 
     // 给出某年某月的年柱、月柱、返回上一个月的年柱、月柱。并指出所给月份是否是含立春的月份。
     std::string getPreMonthYearMothZhu(int year, int month, const std::string &yearZhu, const std::string &monthZhu, bool isLiChun);
