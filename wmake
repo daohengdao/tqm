@@ -1,0 +1,26 @@
+######################################
+ROOT_DIR = .
+EXE_NAME = tqm.exe
+TARGET_RELEASE = deal.o hqimen.o calendar.o public.o
+CC = g++
+MAKE = mingw32-make
+######################################
+vpath %.h include
+vpath %.cpp src
+INCLUDE_DIR = $(ROOT_DIR)/include
+
+release: $(TARGET_RELEASE)
+	$(CC) -o $(EXE_NAME) main.cpp -I$(INCLUDE_DIR) $(TARGET_RELEASE) -fexec-charset=GBK
+	- del *.o
+deal.o: calendar.h calendar.cpp deal.h deal.cpp
+	$(CC) -c src/deal.cpp -I$(INCLUDE_DIR) -fexec-charset=GBK
+calendar.o: calendar.h calendar.cpp
+	$(CC) -c src/calendar.cpp -I$(INCLUDE_DIR) -fexec-charset=GBK
+hqimen.o: calendar.h calendar.cpp deal.h deal.cpp hqimen.cpp hqimen.h
+	$(CC) -c src/hqimen.cpp -I$(INCLUDE_DIR) -fexec-charset=GBK
+public.o: public.h public.cpp
+	$(CC) -c src/public.cpp -I$(INCLUDE_DIR) -fexec-charset=GBK
+
+clean:
+	- del *.o
+	- del $(EXE_NAME)
