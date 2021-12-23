@@ -1175,8 +1175,6 @@ void Calendar::getNexJieQiInfo(int &year, int &month, std::string &jieQi, std::s
 {
     // 1990 1 小寒 丁丑
     int startIndex = jieQiInfo[jieQi];
-    int nextYear = 0;
-    int nextMonth = 0;
 
     // 下一个节气还是当月
     if ((startIndex % 2) == 0)
@@ -1277,7 +1275,7 @@ void Calendar::SplitString(const std::string& data, std::string splitString, std
     while (true)
     {
         iPosEnd = sCopy.find(splitString);
-        if (iPosEnd == -1)
+        if (iPosEnd == std::string::npos)
         {
             result.push_back(sCopy);
             break;
