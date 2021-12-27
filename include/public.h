@@ -3,7 +3,7 @@
 /*
  * 该头文件保存处理各种问题的类
 */
-static std::string version = "版本: V0.2";
+static std::string version = "版本: V0.3";
 // 打印九宫格结果的类
 // 用法：首先需要赋值给 m1 ~ m6，然后调用 Print()
 // m1 - m6 的内容顺序是 坎一，坤二，震三...的顺序。
@@ -48,6 +48,6 @@ private:
     std::string handleTwo(int num);
     // 不同字数操作，vector 第几个内容（下标）
     std::string handleThree(int num);
-    // 直符、直使返回的空格不同
+    // 值符、值使返回的空格不同
     std::string haveZhi(std::string data);
 };

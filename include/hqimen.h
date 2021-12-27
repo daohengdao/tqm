@@ -49,6 +49,9 @@ private:
     std::map<int, std::string> cnNameMonth;           // 农历中文名字月
     std::map<int, std::string> numName;               // 数字中文
     std::map<std::string, std::string> liuJia;        // 六甲对应关系
+    std::map<std::string, int> zhangSheng;            // 十二长生和宫的对应
+    std::map<std::string, std::string> sanHe;         // 十二地支三合的首个
+    std::map<std::string, std::string> xiangChong;    // 地支相冲
 
     std::vector<std::string> jiuXing;                 // 九星的初始位置
     std::vector<std::string> jiuXingPaiLie;           // 九星的旋转位置
@@ -59,8 +62,9 @@ private:
     std::vector<std::string> diPan;                   // 地盘信息
     std::vector<std::string> jiuXingRe;               // 九星的最终位置
     std::vector<std::string> baMenRe;                 // 八门的最终位置
-    std::vector<std::string> baShenRe;                 // 八神的最终位置
+    std::vector<std::string> baShenRe;                // 八神的最终位置
     std::vector<std::string> tianPan;                 // 天盘信息
+    std::vector<std::string> otherRe;                 // 其他信息
 
 
 private:
@@ -77,6 +81,8 @@ private:
     void generateBaShen();
     // 排天盘
     void generateTianPan();
+    // 排旬空和马星
+    void generateXunKongMaxing();
 
 private:
     // 查看 data 在 m 中的下标

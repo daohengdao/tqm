@@ -279,14 +279,18 @@ PrintResult::~PrintResult()
 {
 
 }
-// 直符、直使返回的空格不同
+// 值符、值使返回的空格不同
 std::string PrintResult::haveZhi(std::string data)
 {
     if (data == zhiFu || data == zhiShi)
     {
         return "*";
+    } else if ((data == "天芮") && zhiFu == "天禽")
+    {
+        return "*";
+    } else {
+        return " ";
     }
-    return " ";
 }
 // void printNine()
 // {

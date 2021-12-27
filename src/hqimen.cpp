@@ -103,7 +103,24 @@ HQiMen::HQiMen(std::string p1, std::string p2, bool isAddEight)
     baShenPaiLie = 
     {
         "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"
-    };        
+    };
+    // 十二长生和宫的对应
+    zhangSheng = 
+    {
+        {"子", 0}, {"丑", 7}, {"寅", 7}, {"卯", 2}, {"辰", 3}, {"巳", 3},
+        {"午", 8}, {"未", 1}, {"申", 1}, {"酉", 6}, {"戌", 5}, {"亥", 5}
+    };
+    // 十二地支三合的首个
+    sanHe = 
+    {
+        {"子", "申"}, {"丑", "巳"}, {"寅", "寅"}, {"卯", "亥"}, {"辰", "申"}, {"巳", "巳"},
+        {"午", "寅"}, {"未", "亥"}, {"申", "申"}, {"酉", "巳"}, {"戌", "寅"}, {"亥", "亥"}
+    };
+    // 地支相冲
+    xiangChong = 
+    {
+        {"申", "寅"}, {"巳", "亥"}, {"寅", "申"}, {"亥", "巳"}
+    };
 }
 HQiMen::~HQiMen()
 {
@@ -161,11 +178,14 @@ void HQiMen::Run()
         generateBaShen();
         // 天盘
         generateTianPan();
+        // 排旬空和马星
+        generateXunKongMaxing();
         
         std::cout << "干支:" << NianGan << " " << YueGan << " " << RiGan << " " << ShiGan << std::endl;
-        std::cout << "     " << NianZhi << " " << YueZhi << " " << RiZhi << " " << ShiZhi << std::endl;
+        std::cout << "     " << NianZhi << " " << YueZhi << " " << RiZhi << " " << ShiZhi;
+        std::cout << "     (天禽星与天芮星同位置)" << std::endl;
         std::cout << "===========================================" << std::endl;
-        std::cout << "直符:" << zhiFu << "  直使: " << zhiShi ;
+        std::cout << "值符:" << zhiFu << "  值使: " << zhiShi ;
         std::cout << "   [" << m_jieqi << m_yuan << "]";
         if (isYinDun)
         {
@@ -182,8 +202,7 @@ void HQiMen::Run()
         su->m3 = baMenRe;
         su->m4 = tianPan;
         su->m5 = diPan;
-        std::vector<std::string> s = {"", "", "", "", "", "", "", "", ""};
-        su->m6 = s;
+        su->m6 = otherRe;
 
         su->showOne = m_calendar->zhSubstr(m_calendar->lunarDayZhu, 2, 0, 1);
         su->showTwo = m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 0, 1);
@@ -700,4 +719,28 @@ void HQiMen::generateTianPan()
         }
     }
     tianPan = result;
+}
+// 排旬空和马星
+void HQiMen::generateXunKongMaxing()
+{
+    std::string hourZhu = m_calendar->lunarHourZhu;
+    // 查找旬头
+    int index = m_calendar->sixtyJiaziIndex[hourZhu];
+    int xuntou = (index / 10) * 10;
+    std::string tmp1 = m_calendar->sixtyJiazi[xuntou + 10];
+    std::string tmp2 = m_calendar->sixtyJiazi[xuntou + 11];
+    std::string d1 = m_calendar->zhSubstr(tmp1, 2, 1, 1);
+    std::string d2 = m_calendar->zhSubstr(tmp2, 2, 1, 1);
+
+    std::vector<std::string> result(9);
+    result.at(zhangSheng[d1]) = "空";
+    result.at(zhangSheng[d2]) = "空";
+
+    // 马星(由时辰的三合来找)
+    std::string d3 = m_calendar->zhSubstr(m_calendar->lunarHourZhu, 2, 1, 1);
+    std::string t1 = xiangChong[sanHe[d3]];
+
+    result.at(zhangSheng[t1]) = "马" + result.at(zhangSheng[t1]);
+
+    otherRe = result;
 }
