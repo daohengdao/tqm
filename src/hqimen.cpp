@@ -170,8 +170,8 @@ void HQiMen::Run()
         std::cout << "===========================================" << std::endl;
         std::cout << "农历:"
         << numName[lunarY / 1000]
-        << numName[(lunarY - (lunarY / 1000) * 1000) / 100]
-        << numName[((lunarY - (lunarY % 10)) / 10) % 10]
+        << numName[(lunarY / 100) % 10]
+        << numName[(lunarY / 10) % 10]
         << numName[lunarY % 10] << "年 "
         << cnNameMonth[m_calendar->lunarMonth]
         << cnNameDay[m_calendar->lunarDay]

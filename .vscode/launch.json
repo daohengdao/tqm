@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/tqm",
-            "args": ["-s", "0", "-m", "yi8"],
+            "args": ["-s", "0", "-m", "0"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
