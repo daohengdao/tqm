@@ -88,13 +88,9 @@ cd tqm
 # 3-1.如果是windows系统执行 build.bat
 终端中./build.bat 或 鼠标双击打开 build.bat
 # 3-2.如果是linux系统有如下两种方法执行脚本。
-(1) 直接 sh build.sh 即可
+(1) 直接 sh build.sh 或者 make 即可
 (2) 如果没有 sh 命令，先 chmod +x ./build.sh 给于 build.sh 可以执行权限。
 然后 ./build.sh 即可。
 ```
 
 构建生成的二进制文件在项目根目录下，名为**tqm**，如果有其他配置选项，可以手动构建。
-
-# 最后
-
-GitHub 访问太慢，开发环境虽然有ScienceInternet，但是很多使用环境没有这个，可以说不是很方便，所以，后续版本都在码云上更新，最新的版本请访问同名Gitee（用户和仓库都同名）。

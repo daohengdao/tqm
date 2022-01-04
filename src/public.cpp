@@ -165,9 +165,14 @@ std::string PrintResult::handleTwo(int num)
 std::string PrintResult::handleOne(int num)
 {
     std::string re = "";
-    if (m6.at(num) != "")
+    std::string han = "甲";
+    std::string content = m6.at(num);
+    size_t length = han.length();
+    if (content.length() == length)
     {
-        re = re + "   (" + m6.at(num) + ") ";
+        re = re + "   (" + content + ") ";
+    } else if (content.length() == (length * 2)) {
+        re = re + " (" + content + ") ";
     } else {
         re = "        ";
     }

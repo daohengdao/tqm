@@ -71,7 +71,7 @@ bool IsParaLegal(int argc, char* argv[], std::string& result, bool& isAddEight)
         // 使用当前时间
         if (strcmp(argv[2], "0") == 0)
         {
-            if (strcmp(argv[2], "0") == 0)
+            if (strcmp(argv[4], "0") == 0)
             {
                 result = "s 0 0";
                 return true;

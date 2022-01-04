@@ -779,6 +779,11 @@ bool Calendar::SetSolarDate(int year, int month, int day, int hour, int min, int
 
     // 日柱是对的
     int r = GetDayDiffFromBase(strDate);
+    // 夜晚11点以后算第二天
+    if (solarHour == 23)
+    {
+        r++;
+    }
     lunarDayZhu = getJiazi(r + 10);
 
     // ********************* 三柱 *******************************

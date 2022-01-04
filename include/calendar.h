@@ -146,7 +146,8 @@ public:
 
     // 给出 YYYYMMDDHHMMSS（包含节气的日期） 和节气名字，返回该节气的上一个节气的日期，和名字，返回格式 YYYYMMDDHHMMSS
     void GetPreJieQiDateTime(const std::string& datetime, const std::string& jieQiName, std::string& preDatetime, std::string& preJieQiName);
-    /* 本程序未使用但个人认为有用的函数 */
+
+/* 本程序未使用但个人认为有用的函数 */
 public:
 
     // 获取当前系统日期时间，精确到毫秒 格式 YYYYMMDDHHMMSSMIL

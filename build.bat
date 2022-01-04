@@ -1,6 +1,6 @@
 @echo off
 echo ===============================
-echo show have mingw env.....
+echo need mingw env.....
 echo ===============================
 pause
 rem if exist build (

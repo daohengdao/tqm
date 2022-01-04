@@ -40,7 +40,7 @@ HQiMen::HQiMen(std::string p1, std::string p2, bool isAddEight)
     }
     else
     {
-        if (p1.substr(0, 2) == "yi")
+        if (p2.substr(0, 2) == "yi")
         {
             this->isYinDun = true;
         }
@@ -59,9 +59,9 @@ HQiMen::HQiMen(std::string p1, std::string p2, bool isAddEight)
     {
         {1, "初一"}, {2, "初二"}, {3, "初三"}, {4, "初四"}, {5, "初五"}, {6, "初六"}, {7, "初七"},
         {8, "初八"}, {9, "初九"}, {10, "初十"}, {11, "十一"}, {12, "十二"}, {13, "十三"}, {14, "十四"},
-        {15, "十五"}, {16, "十六"}, {17, "十七"}, {18, "十八"}, {19, "十九"}, {20, "二十"}, {21, "二十一"},
-        {22, "二十二"}, {23, "二十三"}, {24, "二十四"}, {25, "二十五"}, {26, "二十六"}, {27, "二十七"},
-        {28, "二十八"}, {29, "二十九"}, {30, "三十"}
+        {15, "十五"}, {16, "十六"}, {17, "十七"}, {18, "十八"}, {19, "十九"}, {20, "二十"}, {21, "廿一"},
+        {22, "廿二"}, {23, "廿三"}, {24, "廿四"}, {25, "廿五"}, {26, "廿六"}, {27, "廿七"},
+        {28, "廿八"}, {29, "廿九"}, {30, "三十"}
     };
     cnNameMonth =
     {
@@ -139,12 +139,22 @@ void HQiMen::Run()
         return;
     }
     std::cout << "===========================================" << std::endl;
-    std::cout << "[公元" << m_year << "年" << m_month << "月" << m_day
-        << "日" << m_hour << "时" << m_min << "分" << m_sec << "秒]";
-    std::cout << "[" << version << "]" << std::endl;
+    std::cout << "[公元" << m_calendar->TurnWithZero(m_year)
+    << "年" << m_calendar->TurnWithZero(m_month)
+    << "月" << m_calendar->TurnWithZero(m_day)
+    << "日" << m_calendar->TurnWithZero(m_hour)
+    << "时" << m_calendar->TurnWithZero(m_min)
+    << "分" << m_calendar->TurnWithZero(m_sec)
+    << "秒]";
+    std::cout << " 版本" << version << "" << std::endl;
 
     bool re = m_calendar->SetSolarDate(m_year, m_month, m_day, m_hour, m_min, m_sec);
-    confirmNumth();
+
+    if (isStyleAuto)
+    {
+        confirmNumth();
+    }
+    
     if (re)
     {
         std::string NianGan = m_calendar->zhSubstr(m_calendar->lunarYearZhu, 2, 0, 1);
@@ -185,8 +195,14 @@ void HQiMen::Run()
         std::cout << "     " << NianZhi << " " << YueZhi << " " << RiZhi << " " << ShiZhi;
         std::cout << "     (天禽星与天芮星同位置)" << std::endl;
         std::cout << "===========================================" << std::endl;
-        std::cout << "值符:" << zhiFu << "  值使: " << zhiShi ;
-        std::cout << "   [" << m_jieqi << m_yuan << "]";
+        std::cout << "值符:" << zhiFu << "   值使:" << zhiShi ;
+        if (isStyleAuto)
+        {
+            std::cout << "   [" << m_jieqi << m_yuan << "]";
+        }
+        else {
+            std::cout << "   [手动定局]";
+        }
         if (isYinDun)
         {
             std::cout << "[阴遁" << style << "局]" << std::endl;
@@ -268,11 +284,11 @@ void HQiMen::confirmNumth()
         }
         else if (m_yuan == "中元")
         {
-            style = (value - ((value / 1000) * 1000)) / 100;
+            style = (value / 100) % 10;
         }
         else
         {
-            style = ((value - (value % 10)) / 10) % 10;
+            style = (value / 10) % 10;
         }
     }
     else
@@ -727,8 +743,8 @@ void HQiMen::generateXunKongMaxing()
     // 查找旬头
     int index = m_calendar->sixtyJiaziIndex[hourZhu];
     int xuntou = (index / 10) * 10;
-    std::string tmp1 = m_calendar->sixtyJiazi[xuntou + 10];
-    std::string tmp2 = m_calendar->sixtyJiazi[xuntou + 11];
+    std::string tmp1 = m_calendar->sixtyJiazi[(xuntou + 10) % 60];
+    std::string tmp2 = m_calendar->sixtyJiazi[(xuntou + 11) % 60];
     std::string d1 = m_calendar->zhSubstr(tmp1, 2, 1, 1);
     std::string d2 = m_calendar->zhSubstr(tmp2, 2, 1, 1);
 
