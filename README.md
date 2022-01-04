@@ -69,6 +69,10 @@
 ===========================================
 ```
 
+以下是截图：
+
+![image](https://github.com/taynpg/tqm/blob/main/images/example.png)
+
 # 当前进度
 
 因为是零散时间开发，因此，开发到哪里就记到哪里。
