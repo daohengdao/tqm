@@ -82,19 +82,16 @@
 
 # 安装
 
-环境要求：g++、make。
+环境要求：g++、make，也可以使用 msvc 编译器。
 
 ```shell
+
 # 1.拉取代码
 git clone https://github.com/taynpg/tqm
+
 # 2.进入到项目目录中
 cd tqm
-# 3-1.如果是windows系统执行 build.bat
-终端中./build.bat 或 鼠标双击打开 build.bat
-# 3-2.如果是linux系统有如下两种方法执行脚本。
-(1) 直接 sh build.sh 或者 make 即可
-(2) 如果没有 sh 命令，先 chmod +x ./build.sh 给于 build.sh 可以执行权限。
-然后 ./build.sh 即可。
-```
 
-构建生成的二进制文件在项目根目录下，名为**tqm**，如果有其他配置选项，可以手动构建。
+3-1.如果是windows系统执行 build.bat （使用的是Mingw64） 或者 自行使用 msvc 手动编译
+
+3-2.如果是linux系统使用 make 命令即可
