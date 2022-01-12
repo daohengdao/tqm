@@ -95,6 +95,7 @@ cd tqm
 3-1.如果是windows系统执行 build.bat （使用的是Mingw64） 或者 自行使用 msvc 手动编译
 
 3-2.如果是linux系统使用 make 命令即可
+```
 
 # GUI桌面版本
 
