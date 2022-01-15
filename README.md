@@ -99,6 +99,12 @@ cd tqm
 
 # GUI桌面版本
 
-下面是我开发的桌面版本，暂只完成了排盘排版，支持记录，查询等功能。
+下面是我开发的桌面版本，支持盘记录、解盘记录、解盘记录查询、天地盘十二长生状态等功能。
 
 ![image](https://github.com/taynpg/tqm/blob/main/images/example1.png)
+
+![image](https://github.com/taynpg/tqm/blob/main/images/example2.png)
+
+![image](https://github.com/taynpg/tqm/blob/main/images/example3.png)
+
+![image](https://github.com/taynpg/tqm/blob/main/images/example4.png)
