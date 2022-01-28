@@ -172,7 +172,7 @@ std::string PrintResult::handleOne(int num)
     {
         re = re + "   (" + content + ") ";
     } else if (content.length() == (length * 2)) {
-        re = re + " (" + content + ") ";
+        re = re + "  (" + content + ")";
     } else {
         re = "        ";
     }

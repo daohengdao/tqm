@@ -490,7 +490,7 @@ std::vector<std::string> HQiMen::generateDiPan()
 {
     std::vector<std::string> result(9);
 
-    int index = m_calendar->getRemainder((style - 1), 9);
+    unsigned int index = m_calendar->getRemainder((style - 1), 9);
     result.at(index) = "戊";
 
     // 阴遁阳遁排序不同
@@ -759,4 +759,23 @@ void HQiMen::generateXunKongMaxing()
     result.at(zhangSheng[t1]) = "马" + result.at(zhangSheng[t1]);
 
     otherRe = result;
+}
+// 字符串分割
+// 字符串替换
+std::string HQiMen::ReplaceString(std::string data, std::string oldData, std::string newData)
+{
+    std::string r = data;
+    while (true)
+    {
+        std::string::size_type pos(0);
+        if ((pos = r.find(oldData)) != std::string::npos)
+        {
+            r.replace(pos, oldData.length(), newData);
+        }
+        else
+        {
+            break;
+        }
+    }
+    return r;
 }

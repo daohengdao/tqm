@@ -184,7 +184,7 @@ public:
     std::string zhSubstr(const std::string& data, int num, size_t start, size_t length);
 
     // 对 num 取余，jinZhi 为基数，num 支持负数，结果在 [0, jinZhi-1]内
-    int getRemainder(int num, int jinZhi);                         
+    unsigned int getRemainder(int num, int jinZhi);                         
 
 /* 主要是本程序使用 */
 private:

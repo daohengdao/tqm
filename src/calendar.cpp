@@ -1244,7 +1244,7 @@ std::string Calendar::getPreMonthYearMothZhu(int year, int month, const std::str
     return resultYearZhu + resultMonthZhu;
 }
 // 对 num 取余，jinZhi 为基数，num 支持负数，结果在 [0, jinZhi-1]内
-int Calendar::getRemainder(int num, int jinZhi)
+unsigned int Calendar::getRemainder(int num, int jinZhi)
 {
     int tmp = num % jinZhi;
     if (tmp >= 0)

@@ -5,25 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ - 生成和调试活动文件",
-            "type": "cppdbg",
+            "name": "cl.exe - 生成和调试活动文件",
+            "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/tqm",
-            "args": ["-s", "0", "-m", "0"],
+            "program": "${workspaceFolder}\\tqm.exe",
+            "args": [],
+            //"args": ["-s", "2022-01-28-22-59-59", "-m", "0"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "为 gdb 启用整齐打印",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "makeRun",
-            "miDebuggerPath": "/usr/bin/gdb",
+            "console": "externalTerminal",
+            "preLaunchTask": "debug-cpp"
         }
     ]
 }

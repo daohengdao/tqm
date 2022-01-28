@@ -2,7 +2,6 @@
 #define HQIMEN_H
 
 #include <string>
-#include "deal.h"
 #include "calendar.h"
 #include <iostream>
 #include <vector>
@@ -32,15 +31,15 @@ private:
 
     int style = 0;                // 第几局
 
-    bool isYinDun = false;                            // 是否是阴遁
-    bool isStyleAuto = false;                         // 是否是自动推算第几局
-    bool isAdd = false;                               // 部分环境差 8 H，为 true 时补正 8 H
-
     std::string m_yuan;                               // 上中下哪一元 (汉字两个)
     std::string m_jieqi;                              // 归哪个节气管
     std::string zhiFu;                                // 直符是谁
     std::string zhiShi;                               // 直使是谁
 
+    bool isYinDun = false;                            // 是否是阴遁
+    bool isStyleAuto = false;                         // 是否是自动推算第几局
+    bool isAdd = false;                               // 部分环境差 8 H，为 true 时补正 8 H
+    
     Calendar* m_calendar = nullptr;                   // 日历
 
     std::map<std::string, int> juAndJieQi;            // 奇门局序数与节气的关系表
@@ -83,6 +82,8 @@ private:
     void generateTianPan();
     // 排旬空和马星
     void generateXunKongMaxing();
+    // 字符串替换
+    std::string ReplaceString(std::string data, std::string oldData, std::string newData);
 
 private:
     // 查看 data 在 m 中的下标

@@ -3,7 +3,7 @@
 /*
  * 该头文件保存处理各种问题的类
 */
-static std::string version = "V0.3.3";
+static std::string version = "V1.0.0";
 // 打印九宫格结果的类
 // 用法：首先需要赋值给 m1 ~ m6，然后调用 Print()
 // m1 - m6 的内容顺序是 坎一，坤二，震三...的顺序。

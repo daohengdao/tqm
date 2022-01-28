@@ -1,21 +1,24 @@
 {
-    "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "makeRun",
+            "type": "shell",
+            "label": "debug-cpp",
             "command": "make",
             "args": [
-                "debug"
+                "win-debug",
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
-                "$gcc"
+                "$msCompile"
             ],
-            "group": "build",
-            "detail": "编译器: /usr/bin/g++"
-        }
-    ]
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "调试器生成的任务。"
+        },
+    ],
+    "version": "2.0.0"
 }

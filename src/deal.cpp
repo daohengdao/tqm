@@ -3,7 +3,7 @@
 // 参数错误时，提示信息
 void ShowNotice()
 {
-    std::cout << "帮助信息：直接执行程序而不给任何参数查看帮助，然后给出正确的命令格式。" << std::endl;
+    std::cout << "帮助信息:直接执行程序而不给任何参数查看帮助，然后给出正确的命令格式。" << std::endl;
 }
 
 // 执行未实现的功能时的提示
@@ -166,28 +166,22 @@ bool IsParaLegal(int argc, char* argv[], std::string& result, bool& isAddEight)
 // 显示默认的介绍
 void ShowDefaultInfo()
 {
-    std::cout << "***************************************************************************" << std::endl;
-    std::cout << "【第一个参数介绍：门派确定(x表示功能暂未实现，v表示已实现)】" << std::endl;
-    std::cout << "     (x)tqm -n  表示年家奇门。" << std::endl;
-    std::cout << "     (x)tqm -y  表示月家奇门。" << std::endl;
-    std::cout << "     (x)tqm -r  表示日家奇门。" << std::endl;
-    std::cout << "     (v)tqm -s  表示时家奇门[置润][转盘法]。\n" << std::endl;
-    std::cout << "【第二个参数介绍：确定详情（以下以时家奇门[置润][转盘法]为例）】" << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << "      时家必须传入两个参数，-s 指定日期，-m 指定手动选局。" << std::endl;
+    std::cout << "******************************************************************" << std::endl;
+    std::cout << "【时家奇门遁甲tqm】\n" << std::endl;
+    std::cout << "功能:本地离线排盘工具，使用转盘-超接置润法。" << std::endl;
+    std::cout << "参数介绍: (-s -m 必须要有且顺序不能颠倒)" << std::endl;
+    std::cout << "本命令行程序必须传入两个参数，-s 指定日期，-m 指定手动选局。\n" << std::endl;
+    std::cout << "<传入参数示例>tqm -s 0 -m 0" << std::endl;
+    std::cout << "其中 s 的值为 0 则用当前时间起局，m 的值为 0 则自动计算第几局。" << std::endl;
+    std::cout << "若 s 后的参数不为 0，则参数的格式为(公历24小时制):" << std::endl;
+    std::cout << "YYYY-MM-DD-HH-MM-SS 或 YYYY-MM-DD-HH(某数字若为个位数前面需补0)。" << std::endl;
+    std::cout << "若 m 后的参数不为0，参数的示例格式: yi8(阴遁8局), ya7(阳遁7局)。" << std::endl;
     std::cout << "" << std::endl;
-    std::cout << "      <传入参数示例>tqm -s 0 -m 0 " << std::endl;
-    std::cout << "      [s = 0]表示用当前的时间起局，[m = 0]表示自动计算第几局。" << std::endl;
-    std::cout << "      (-s -m 必须要有且顺序不能颠倒)\n" << std::endl;
-    std::cout << "      若 s 后的参数不为 0，参数格式(公历24小时制)(个位数需补0):" << std::endl;
-    std::cout << "      YYYY-MM-DD-HH-MM-SS 或者 YYYY-MM-DD-HH。" << std::endl;
-    std::cout << "      若 m 后的参数不为0，参数示例格式: yi8(阴遁8局), ya7(阳遁7局)。" << std::endl;
-    std::cout << "" << std::endl;
-    std::cout << "      说明1: 月、日、时、如果是个位数，前面需要补 0， 如8月输入08。" << std::endl;
-    std::cout << "      说明2: 如果自动获取的时间慢了8小时，最后面添加 -a 参数补正。" << std::endl;
-    std::cout << "      说明3：时间跨度(1901-01-01-00-00-00 到 2098-12-31-23-59-59)" << std::endl;
-    std::cout << "      https://github.com/taynpg/tqm" << std::endl;
-    std::cout << "***************************************************************************" << std::endl;
+    std::cout << "说明1: 如果自动获取的时间慢了8小时，最后面添加 -a 参数补正。" << std::endl;
+    std::cout << "说明2: 时间跨度(1901-01-01-00-00-00 到 2098-12-31-23-59-59)" << std::endl;
+    std::cout << "https://gitee.com/taynpg/tqm" << std::endl;
+    std::cout << "                                                          --taynpg" << std::endl;
+    std::cout << "******************************************************************" << std::endl;
 }
 
 
