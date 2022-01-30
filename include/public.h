@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 /*
  * 该头文件保存处理各种问题的类
 */
